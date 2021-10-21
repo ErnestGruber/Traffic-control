@@ -1,5 +1,5 @@
 from unittest import TestCase, main
-from vlad_branch_test import LRUcache
+from LRUcache import LRUcache
 
 
 class LRUtest(TestCase):
