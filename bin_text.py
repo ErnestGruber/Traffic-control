@@ -14,12 +14,14 @@ class bin_data:
         Fin_1 = open(self.file_input)
         Fin_2 = open(self.file_output, 'w')
         while True:
+            sq=''
             line=Fin_1.readline()
             if not line:
                 break
             for i in line.split():
-                Fin_2.write(binary(int(i)))
-                Fin_2.write(' ')
+                sq+=binary(int(i))+' '
+            sq=sq.strip()
+            Fin_2.write(sq)
             Fin_2.write('\n')
 
         Fin_2.close()
@@ -44,13 +46,14 @@ class ten_data:
         Fin_1 = open(self.file_input)
         Fin_2 = open(self.file_output, 'w')
         while True:
+            sq=''
             line=Fin_1.readline()
             if not line:
                 break
             for i in line.split():
-                Fin_2.write(ten(i))
-                Fin_2.write(' ')
+                sq+=ten(i)+' '
+            sq=sq.strip()
+            Fin_2.write(sq)
             Fin_2.write('\n')
 
         Fin_2.close()
-
