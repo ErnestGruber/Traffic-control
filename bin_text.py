@@ -1,8 +1,8 @@
-class data:
+import os
+class bin_data:
     def __init__(self,file_input,file_output):
         self.file_input=file_input
         self.file_output=file_output
-
 
     def go_to_bin (self):
         def binary(n):
@@ -23,6 +23,16 @@ class data:
             Fin_2.write('\n')
 
         Fin_2.close()
+        Fin_1.close()
+        if os.path.isfile(self.file_input):
+            os.remove(self.file_input)
+        else:
+            print('Error')
+
+class ten_data:
+    def __init__(self,file_input,file_output):
+        self.file_input=file_input
+        self.file_output=file_output
 
     def go_to_ten (self):
         def ten(data):
@@ -43,6 +53,4 @@ class data:
             Fin_2.write('\n')
 
         Fin_2.close()
-
-
 
