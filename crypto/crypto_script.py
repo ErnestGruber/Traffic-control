@@ -22,7 +22,6 @@ def full_info(num):
     json_dict = response.json()
     return json_dict
 
-
 def crypto(data):
     B = [{}, {}, {}]
     new_data = {}
@@ -46,79 +45,18 @@ def crypto(data):
         value = data[i]
         temp_data[coding(key)] = coding(value)
     return temp_data
-#data = full_info(71031)
 
-data={
-  "time": 1634747720,
-  "id": 1,
-  "rc_created_at": "2021-10-20T12:22:58.35137Z",
-  "rc_updated_at": "2021-10-20T16:35:19.545886Z",
-  "num_tl": 3228,
-  "name": "Танковый пр-д Краснокурсантский 1 пр-д ",
-  "is_enabled": 'true',
-  "is_alarmed": 'true',
-  "type": "SYNTEZ",
-  "protocol": "SCTIP",
-  "conn_status": "OK",
-  "mode": "CC_CALENDAR",
-  "program_id": 7,
-  "keep_phase_id": 0,
-  "changed_time_at": "2021-10-20T14:00:01.27971Z",
-  "real_mode": "LOCAL",
-  "real_program_id": 7,
-  "real_keep_phase_id": 0,
-  "program_created_at": "2021-10-20T12:22:58.349945Z",
-  "program_updated_at": "2021-10-20T12:22:58.349945Z",
-  "t_cycle": 90,
-  "program_type": "LOCAL",
-  "phases": [
-    {
-      "id": 1,
-      "t_osn": 32,
-      "t_prom": 6,
-      "t_min": 4,
-      "is_hidden": 'false',
-      "directions": [
-        1,
-        2
-      ]
-    },
-    {
-      "id": 2,
-      "t_osn": 25,
-      "t_prom": 6,
-      "t_min": 4,
-      "is_hidden": 'false',
-      "directions": [
-        3
-      ]
-    },
-    {
-      "id": 3,
-      "t_osn": 15,
-      "t_prom": 6,
-      "t_min": 15,
-      "is_hidden": 'false',
-      "directions": [
-        4,
-        5,
-        6
-      ]
-    }
-  ],
-  "start_phase_id": 1
+data = full_info(71031)
 
-}
-
-
-
-
+def F(data):
+    return data['phases']
 temp_data=crypto(data)
+
+
 def file(data):
     data=temp_data
     data_hard=data.pop('010100000100100001000001010100110100010101010011')
-    print(data)
-    F=open('cache_file','w')
+    F=open('../cache_file', 'w')
     for i in data:
         key=i
         value=data[key]
@@ -126,15 +64,6 @@ def file(data):
         F.write(' ')
         F.write(value)
         F.write('\n')
-    print(data_hard)
-    for i in data_hard:
-        for j in i:
-            key = j
-            value = i[j]
-            F.write(key)
-            F.write(' ')
-            F.write(value)
-            F.write('\n')
     F.close()
 file(data)
 
