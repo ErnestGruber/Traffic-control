@@ -1,25 +1,21 @@
-import json
 import requests
 
 
 class SendGet:
         @classmethod
-        def full_info(self,id):
-            response = requests.get(f'https://api.via-dolorosa.ru/rc/{id}/full_info')
-            data=response.json()
-            return data
+        def full_info(cls, id):
+            return (requests.get(f'https://api.via-dolorosa.ru/rc/{id}/full_info')).json()
 
         @classmethod
-        def status(self,id):
-            response = requests.get(f'https://api.via-dolorosa.ru/rc/{id}/status')
-            return response.json()
+        def status(cls, id):
+            return requests.get(f'https://api.via-dolorosa.ru/rc/{id}/status').json()
 
         @classmethod
-        def get_id_command(self,id):
-            data=self.status(id)
-            current_program_id=data["current_program_id"]
-            return current_program_id
-
+        def get_id_command(cls, id):
+            return cls.status(id)["current_program_id"]   #current_program_id
+        @classmethod
+        def get_id_phase(cls, id ):
+            return cls.status(id)["current_phase_id"]
 a=SendGet()
 data=a.full_info(71031)
 print(data)
