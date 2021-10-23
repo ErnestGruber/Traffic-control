@@ -22,7 +22,7 @@ class AnomalyFind(ABC):
         error = intensive_raw.max()
         print(error)
 
-test = AnomalyFind.find('/Users/valerijkutuzov/Downloads/Пример данных с детекторов транспорта /rawdata/ДТ1_От_ул_Фёдора_Полетаева_к_Окскому_пр_ду.xls', 'Intensive')
+test = AnomalyFind.find('/Users/valerijkutuzov/PycharmProjects/Traffic-control/RawData/FedorsPoletarva-Okskomy.xls', 'Intensive')
 
 print(test)
 
