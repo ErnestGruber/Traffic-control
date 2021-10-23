@@ -1,13 +1,13 @@
 from POST.GET import SendGet
 from cache.imbacash import imbacash
-from cache.LRUcache import LRUcache
+from Compare.Compare_class import Compare
+import json
 
 a=SendGet()
-data=a.full_info(71031)
+data=a.full_info(71031) # получение json по API
 
-#main_dict = imbacash()
-#print(main_dict.get("num_tl"))
+main_dict = imbacash() # получение плана после кэширования
 
-#a = Compare()
-#a.compare_dicts(data, main_dict)
+a =Compare()
+a.compare_dicts(data, main_dict) # сравнение плана и полученных результатов
 
