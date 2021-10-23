@@ -15,4 +15,9 @@ class GetCurrentStatus():
 class PostCustomPhase():
     def Post(id, body):
         responce = requests.post(f'https://api.via-dolorosa.ru/rc/{id}/custom_phase_program', json=body)
+        return responce.json()
+
+class TakePhase:
+    def Post(id):
+        responce = requests.post(f'https://api.via-dolorosa.ru/rc/{id}/forward_next_phase')
         return responce
