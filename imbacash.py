@@ -36,8 +36,7 @@ def imbacash():
         else:
             data.put(encoding(line[0]),encoding(line[1]))
     return data
-
-
+from crypto_script import full_info
 
 
 

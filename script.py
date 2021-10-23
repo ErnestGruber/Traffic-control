@@ -61,10 +61,7 @@ def go_to_cash(output): # закинули из файла в словарь
             value=line[1]
             data.put(key,value)
     return data
-#output='cache_file.txt'
 dict={'1':'2','3':'4'}
 A=go_to_bin_file(dict)
-p
-#data=go_to_cash(output)
-#print(data.get('00110001'))
+
 
