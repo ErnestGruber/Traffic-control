@@ -34,7 +34,7 @@ def go_to_bin_file(dict,): # в двоичный файл
             res += dict.get(i)
         return res
 
-    F = open('bin_test_data.txt', 'w')
+    F = open('cache_file.txt', 'w')
     for key, value in dict.items():
         key= coding(key)
         A.append(key)
@@ -61,7 +61,7 @@ def go_to_cash(output): # закинули из файла в словарь
             value=line[1]
             data.put(key,value)
     return data
-#output='bin_test_data.txt'
+#output='cache_file.txt'
 dict={'1':'2','3':'4'}
 A=go_to_bin_file(dict)
 p

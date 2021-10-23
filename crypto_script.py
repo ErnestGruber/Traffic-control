@@ -23,7 +23,6 @@ def full_info(num):
     return json_dict
 
 
-data = full_info(71031)
 def crypto(data):
     B = [{}, {}, {}]
     new_data = {}
@@ -47,4 +46,34 @@ def crypto(data):
         value = data[i]
         temp_data[coding(key)] = coding(value)
     return temp_data
-print(crypto(data))
+data = full_info(71031)
+temp_data=crypto(data)
+#print(temp_data)
+def file(data):
+    data=temp_data
+    data_hard=data.pop('010100000100100001000001010100110100010101010011')
+    print(data)
+    F=open('cache_file','w')
+    for i in data:
+        key=i
+        value=data[key]
+        F.write(key)
+        F.write(' ')
+        F.write(value)
+        F.write('\n')
+    print(data_hard)
+    for i in data_hard:
+        for j in i:
+            key = j
+            value = i[j]
+            F.write(key)
+            F.write(' ')
+            F.write(value)
+            F.write('\n')
+    F.close()
+
+
+
+
+
+
