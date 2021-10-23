@@ -1,3 +1,0 @@
-python == 3.9
-collections == 3.9
-unittest == 3.8
