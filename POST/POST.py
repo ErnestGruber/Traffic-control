@@ -18,19 +18,20 @@ class Send_Post:
                 "t_cycle": t_cycle,
                 "phases": phases}
         print(data)
-        responce = requests.post(f'https://api.via-dolorosa.ru/rc/{id}/custom_phase_program', json=data)
-        print(responce.text)
-        return responce
+        response = requests.post(f'https://api.via-dolorosa.ru/rc/{id}/custom_phase_program', json=data)
+        print(response.text)
+        return response
 
     def set_fix_program(self,id):
-        responce = requests.post(f'https://api.via-dolorosa.ru/rc/{id}/set_fix_program/1?deadline=10&force=false')
-        print(responce.text,1)        return responce
+        response = requests.post(f'https://api.via-dolorosa.ru/rc/{id}/set_fix_program/1?deadline=60&force=false')
+        print(response.text)
+        return response
 
     def send_program(self,id):
-        responce = requests.post(f'https://api.via-dolorosa.ru/rc/{id}/send_program')
-        print(responce.text)
-        return responce
+        response = requests.post(f'https://api.via-dolorosa.ru/rc/{id}/send_program')
+        print(response.text)
+        return response
 
 time = {0: [3,1632402791], 1: [31, 9, 4, False, None], 2: [13, 9, 4, False, None], 3: [25, 9, 15, False, None]}
 a=Send_Post()
-a.custom_phase_program(71032,time)
+a.set_fix_program(71032)
