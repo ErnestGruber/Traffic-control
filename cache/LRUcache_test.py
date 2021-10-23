@@ -1,5 +1,5 @@
 from unittest import TestCase, main
-from cash.LRUcache import LRUcache
+from LRUcache import LRUcache
 
 
 class LRUtest(TestCase):

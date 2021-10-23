@@ -1,5 +1,10 @@
 from LRUcache import LRUcache
-
+from crypto_script import F
+import requests
+def full_info(num):
+    response = requests.get(f'https://api.via-dolorosa.ru/rc/{num}/full_info')
+    json_dict = response.json()
+    return json_dict
 
 def encoding(sq):
     dict = {'01000001': 'a', '01000010': 'b', '01000011': 'c', '01000100': 'd', '01000101': 'e', '01000110': 'f',
@@ -25,11 +30,9 @@ def encoding(sq):
             sq_new += i
     res += dict[sq_new]
     return res
-
-
+temp_data = full_info(71031)
+q=temp_data['phases']
 def imbacash():
-    temp_data = F(data)
-    z = temp_data['phases']
     data=LRUcache(50)
     F=open('cache_file')
     while True:
@@ -38,8 +41,9 @@ def imbacash():
             break
         else:
             data.put(encoding(line[0]),encoding(line[1]))
-    data.put('phases',z)
+    data.put('phases',q)
 
     return data
+
 
 
