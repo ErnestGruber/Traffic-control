@@ -13,7 +13,7 @@ class LRUcache:
             self.cache.move_to_end(key)
             return self.cache[key]
 
-    def put(self,key:int,value:int): # Кладем данные в кэш
+    def put(self,key:int,value): # Кладем данные в кэш
         if key not in self.cache:
             if len(self.cache)>=self.size:
                 self.cache.popitem(last=False)
