@@ -1,10 +1,22 @@
-from pandas import read_csv, DataFrame, Series
+import pandas as pd
+from scipy import cluster
+from scipy.cluster.vq import kmeans
+from abc import ABC, abstractmethod
+
+class AnomalyFind(ABC):
+    @abstractmethod
+    def find(self, data, param):
+        dataFPO = pd.read_excel(f'{data}')
+        dataFPO.head()
+        intensive_raw = dataFPO[f'{param}'].values
+        intensive_raw = intensive_raw.reshape(-1, 1)
+        intensive_raw = intensive_raw.astype('float64')
+        centroids, avg_distance = kmeans(intensive_raw, 4)
+        groups, cdist = cluster.vq.vq(intensive_raw, centroids)
+        error = cdist.max()
+        print(error)
 
 
-dataFPO = read_csv('RawData/FedorsPoletarva-Okskomy.csv', sep=';', comment='#')
-dataSFP = read_csv('RawData/Shumilovo-FedoraPoletaeva.csv')
-dataVS = read_csv('RawData/Volgogradskiy-Shumilovo.csv')
-dataZelZG = read_csv('RawData/Zelenodoliskaya-Zgigulevskoe.csv')
-dataZgZel = read_csv('RawData/Zgigulevskoe-Zelenodoliskaya.csv')
 
-dataFPO.pivot_table('Time', 'Intensive', 'MotoUnit', 'count').plot(kind='bar', stacked=True)
+
+
