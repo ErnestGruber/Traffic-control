@@ -1,5 +1,4 @@
 import requests
-import json
 from GET import SendGet
 
 
@@ -43,7 +42,8 @@ class SendPost:
         response = requests.post(f'https://api.via-dolorosa.ru/rc/{id_controller}/custom_phase_program', json=data)
        # data=json.loads(response.text)
         SendPost.keep_id_phase.update({id_controller:[SendGet.get_id_command(id_controller), #0
-                                                      SendGet.get_id_phase(id_controller)]})
+                                                      SendGet.get_id_phase(id_controller),
+                                                      SendGet.get_keep_id(id_controller)]})
 
         return response
 
@@ -100,23 +100,22 @@ class SendPost:
 
     @classmethod
     def keep_phase(cls, id_controller):
-        if cls.chek_phase(id_controller) == 2 or SendPost.keep_id_controller.index(id_controller):
-            return "WRONG"  # in process
+        if id_controller in SendPost.keep_id_phase == 0 :
+            return "WRONG"
         else:
-            SendPost.keep_id_controller.append(id_controller)
+            SendPost.keep_id_phase.update({id_controller:"yes"})
             response = requests.post(
                 f'https://api.via-dolorosa.ru/rc/{id}/keep_phase/{SendGet.get_id_phase(id_controller)}')
             return response
 
     @classmethod
     def cancel_keep_phase(cls, id_controller):
-        if SendPost.keep_id_controller.index(id_controller):
-            response = requests.post(
-                f'https://api.via-dolorosa.ru/rc/{id}/keep_phase/{SendGet.get_id_phase(id_controller)}')
-            SendPost.keep_id_controller.remove(id_controller)
-            return response
+        if id_controller in SendPost.keep_id_phase == 0 and "yes"in SendPost.keep_id_phase!=0:
+            return "WRONG"
         else:
-            return "WRONG"             # in process
+            SendPost.keep_id_phase.update({id_controller: ""})
+            response = requests.post(f'https://api.via-dolorosa.ru/rc/{id}/keep_phase/{SendGet.get_id_phase(id_controller)}')
+        return response
 
 
 time = {0: [3, 1632402791], 1: [31, 9, 4], 2: [13, 9, 4], 3: [25, 9, 15]}
