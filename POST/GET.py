@@ -13,7 +13,7 @@ class SendGet:
 
         @classmethod
         def get_id_command(cls, id):
-            return cls.status(id)["current_program_id"]   #current_program_id
+            return cls.full_info(id)["program_id"]   #current_program_id
         @classmethod
         def get_id_phase(cls, id ):
             return cls.status(id)["current_phase_id"]     #

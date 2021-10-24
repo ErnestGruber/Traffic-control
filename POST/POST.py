@@ -4,10 +4,9 @@ from GET import SendGet
 
 
 class SendPost:
-    keep_id_controller = []
+
     keep_id_phase={}
-    def create_key_in_dict(self,id_controller):
-        SendPost.keep_id_phase[id_controller]=[]
+
     def check_in_dict_second(self, id_controller):
         SendPost.keep_id_phase = list(set(SendPost.keep_id_phase))  # роверяем значения в словаре
         if id_controller in SendPost.keep_id_phase:
@@ -42,11 +41,10 @@ class SendPost:
                 "phases": phases}
         print(data)
         response = requests.post(f'https://api.via-dolorosa.ru/rc/{id_controller}/custom_phase_program', json=data)
-        data=json.loads(response.text)
-        if SendPost.check_in_dict_first(id_controller)==1:
-            SendPost.keep_id_phase.update({id_controller:[SendGet.status(id_controller),SendGet.get_id_command(id_controller)]})
-        else:
-            SendPost.create_key_in_dict({id_controller:[SendGet.status(id_controller),SendGet.get_id_command(id_controller)]})
+       # data=json.loads(response.text)
+        SendPost.keep_id_phase.update({id_controller:[SendGet.get_id_command(id_controller), #0
+                                                      SendGet.get_id_phase(id_controller)]})
+
         return response
 
     @classmethod
@@ -54,44 +52,50 @@ class SendPost:
         if id_controller in SendPost.keep_id_phase == 0:
             return "WRONG"
         else:
-            id_command = SendGet.get_id_command(id_controller)
+            custom_phase_program = SendPost.keep_id_phase[id_controller][1]
             response = requests.post(
-                f'https://api.via-dolorosa.ru/rc/{id_controller}/set_fix_program/{id_command}'
+                f'https://api.via-dolorosa.ru/rc/{id_controller}/set_fix_program/{custom_phase_program}'
                 f'?deadline={deadline}&force={force}')
+            print(response)
             return response
 
     @classmethod
     def send_program(cls, id_controller):
-        if cls.chek_phase(id_controller) == 2:
+        if id_controller in SendPost.keep_id_phase == 0:
             return "WRONG"
         else:
             response = requests.post(f'https://api.via-dolorosa.ru/rc/{id_controller}/send_program')
+            print(response)
             return response
 
     @classmethod
     def set_local(cls, id_controller):
-        if cls.chek_phase(id_controller) == 2:
+        if id_controller in SendPost.keep_id_phase == 0:
             return "WRONG"
         else:
             response = requests.post(f'https://api.via-dolorosa.ru/rc/{id_controller}/set_local')
+            print(response)
             return response
 
     @classmethod
     def continue_current_phase(cls, id_controller, time_to_continue):
-        if cls.chek_phase(id_controller) == 2:
+        if id_controller in SendPost.keep_id_phase == 0:
             return "WRONG"
         else:
+            get_id_phase = SendPost.keep_id_phase[id_controller][0] # 0 =
             response = requests.post(
                 f'https://api.via-dolorosa.ru/rc/{id}/continue_current_phase?phase_id='
-                f'{SendGet.get_id_phase(id_controller)}&timeout={time_to_continue}')
+                f'{get_id_phase}&timeout={time_to_continue}')
+            print(response)
             return response
 
     @classmethod
     def forward_next_phase(cls, id_controller):
-        if cls.chek_phase(id_controller) == 2:
-            return "WRONG"  # in process
+        if id_controller in SendPost.keep_id_phase == 0:
+            return "WRONG"
         else:
             response = requests.post(f'https://api.via-dolorosa.ru/rc/{id_controller}/forward_next_phase')
+            print(response)
             return response
 
     @classmethod
@@ -112,10 +116,10 @@ class SendPost:
             SendPost.keep_id_controller.remove(id_controller)
             return response
         else:
-            return "WRONG"  # in process
+            return "WRONG"             # in process
 
 
 time = {0: [3, 1632402791], 1: [31, 9, 4], 2: [13, 9, 4], 3: [25, 9, 15]}
 a = SendPost()
 a.custom_phase_program(71037,time)
-a.set_fix_program(71037,60,"false")
+a.send_program(71037)
